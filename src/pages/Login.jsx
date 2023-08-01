@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { signIn } from "../services/auth";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,11 +21,17 @@ function Login() {
     try {
       const { data } = await signIn(formData);
       console.log(data);
-
-      // Lưu thông tin người dùng và accessToken vào LocalStorage
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("accessToken", data.accessToken);
 
+      // Kiểm tra role
+      if (data.user.role === "admin") {
+        // Nếu role là "admin", chuyển hướng sang "/admin/"
+        navigate("/admin/");
+      } else {
+        // Nếu là khách, cho về home
+        navigate("/");
+      }
       alert(data.message, data.user.email);
     } catch (error) {
       console.error("Đã xảy ra lỗi khi đăng nhập:", error);

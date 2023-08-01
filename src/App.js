@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AllCategories from "./pages/admin/category/AllCategories";
 import AllProducts from "./pages/admin/product/AllProducts";
+import Home from "./pages/Home";
+import AdminLayout from "./layouts/AdminLayout";
 
 function App() {
   return (
@@ -11,6 +13,10 @@ function App() {
       <h1>DEMO PROJECT!</h1>
       <Router>
         <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+
           <li>
             <Link to="/login">Đăng nhập</Link>
           </li>
@@ -25,10 +31,12 @@ function App() {
           </li>
         </ul>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/categories" element={<AllCategories />} />
           <Route path="/products" element={<AllProducts />} />
+          <Route path="/admin" element={<AdminLayout />} />
         </Routes>
       </Router>
     </div>

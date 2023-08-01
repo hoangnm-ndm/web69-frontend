@@ -39,9 +39,9 @@ const AllProducts = () => {
   }, []);
 
   const getProducts = async () => {
-    const response = await getallProducts();
-    console.log(response.data.datas);
-    setProduct(response.data.datas);
+    const { data } = await getallProducts();
+    console.log(data.products.docs);
+    setProduct(data.products.docs);
   };
 
   const deleteData = async (id) => {
@@ -73,7 +73,7 @@ const AllProducts = () => {
                 color="primary"
                 style={{ margin: "0px 20px" }}
                 component={Link}
-                to={`/edit/${data._id}`}
+                to={`/admin/products/${data._id}`}
               >
                 Update
               </Button>
